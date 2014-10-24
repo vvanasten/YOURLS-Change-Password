@@ -17,6 +17,14 @@ if( ! defined( 'YOURLS_ABSPATH' ) ) die();
  * - Require at least one digit
  * - Require at lesat one special character
  * - Require both uppercase and lowercase letters
+ * 
+ * You can change these options in your config.php file.
+ * This example enables everything and a minimum of 8 characters:
+ * 
+ * define('VVA_CHANGE_PASSWORD_MINIMUM_LENGTH', 8 );
+ * define('VVA_CHANGE_PASSWORD_USE_DIGITS', TRUE );
+ * define('VVA_CHANGE_PASSWORD_USE_SPECIAL', TRUE );
+ * define('VVA_CHANGE_PASSWORD_USE_UPPERCASE', TRUE );
  */
 if( ! defined( 'VVA_CHANGE_PASSWORD_MINIMUM_LENGTH' ) )
 	define('VVA_CHANGE_PASSWORD_MINIMUM_LENGTH', 6 );
