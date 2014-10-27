@@ -65,7 +65,7 @@ function vva_change_password_logout_link ( $logout_link )
 	$change_password_url = $admin_pages[ 'change_password' ][ 'url' ];
 	
 	$logout_link = rtrim( $logout_link, ')' );
-	$logout_link .= ' | <a href="' . $change_password_url . '">Change password</a>)';
+	$logout_link .= sprintf( ' | <a href="%s">Change password</a>)', $change_password_url );
 	
 	return $logout_link;
 }
@@ -148,7 +148,7 @@ function vva_change_password_display_form( $error_message = NULL )
 	</ul>
 	<div id="change_password">
 		<form method="post" action="">
-			<?php if ( !empty( $error_message ) ) echo '<p class="error">' . $error_message . '</p>'; ?>
+			<?php if ( ! empty( $error_message ) ) printf( '<p class="error">%s</p>', $error_message ); ?>
 			<p>
 				<label for="current_password">Current Password</label><br />
 				<input type="password" id="current_password" name="current_password" size="30" class="text" />
