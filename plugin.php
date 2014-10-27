@@ -27,23 +27,23 @@ if( ! defined( 'YOURLS_ABSPATH' ) ) die();
  * define('VVA_CHANGE_PASSWORD_USE_UPPERCASE', TRUE );
  */
 if( ! defined( 'VVA_CHANGE_PASSWORD_MINIMUM_LENGTH' ) )
-	define('VVA_CHANGE_PASSWORD_MINIMUM_LENGTH', 6 );
+	define( 'VVA_CHANGE_PASSWORD_MINIMUM_LENGTH', 6 );
 
 if( ! defined( 'VVA_CHANGE_PASSWORD_USE_DIGITS' ) )
-	define('VVA_CHANGE_PASSWORD_USE_DIGITS', FALSE );
+	define( 'VVA_CHANGE_PASSWORD_USE_DIGITS', FALSE );
 
 if( ! defined( 'VVA_CHANGE_PASSWORD_USE_SPECIAL' ) )
-	define('VVA_CHANGE_PASSWORD_USE_SPECIAL', FALSE );
+	define( 'VVA_CHANGE_PASSWORD_USE_SPECIAL', FALSE );
 
 if( ! defined( 'VVA_CHANGE_PASSWORD_USE_UPPERCASE' ) )
-	define('VVA_CHANGE_PASSWORD_USE_UPPERCASE', FALSE );
+	define( 'VVA_CHANGE_PASSWORD_USE_UPPERCASE', FALSE );
 
 /**
  * Add hooks required for plugin
  */
-yourls_add_action( 'plugins_loaded', 'vva_change_password_register_page' );
-yourls_add_filter( 'logout_link', 'vva_change_password_logout_link');
-yourls_add_filter( 'admin_sublinks', 'vva_change_password_admin_sublinks' );
+yourls_add_action( 'plugins_loaded',	'vva_change_password_register_page' );
+yourls_add_filter( 'logout_link',		'vva_change_password_logout_link' );
+yourls_add_filter( 'admin_sublinks',	'vva_change_password_admin_sublinks' );
 
 /**
  * Register the change password page
@@ -124,7 +124,7 @@ function vva_change_password_display_page()
 	}
 	else
 	{
-		vva_change_password_display_form($error_message);
+		vva_change_password_display_form( $error_message );
 	}
 }
 
@@ -133,7 +133,7 @@ function vva_change_password_display_page()
  * 
  * @param string $error_message
  */
-function vva_change_password_display_form($error_message = NULL)
+function vva_change_password_display_form( $error_message = NULL )
 {
 	?>
 	<h2>Change Password</h2>
@@ -196,21 +196,21 @@ function vva_change_password_get_form_errors()
 	
 	if ( strlen( $_REQUEST[ 'new_password' ] ) < VVA_CHANGE_PASSWORD_MINIMUM_LENGTH )
 	{
-		$error_message .= 'Error: New Password must be at least ' . VVA_CHANGE_PASSWORD_MINIMUM_LENGTH . ' characters<br />';
+		$error_message .= sprintf( 'Error: New Password must be at least %d characters<br />', VVA_CHANGE_PASSWORD_MINIMUM_LENGTH );
 	}
 	
-	if ( VVA_CHANGE_PASSWORD_USE_DIGITS && ! preg_match('/[0-9]+/', $_REQUEST[ 'new_password' ] ) )
+	if ( VVA_CHANGE_PASSWORD_USE_DIGITS && ! preg_match( '/[0-9]+/', $_REQUEST[ 'new_password' ] ) )
 	{
 		$error_message .= 'Error: New Password must contain at least one digit<br />';
 	}
 	
-	if ( VVA_CHANGE_PASSWORD_USE_SPECIAL && ! preg_match('/[\W_]+/', $_REQUEST[ 'new_password' ] ) )
+	if ( VVA_CHANGE_PASSWORD_USE_SPECIAL && ! preg_match( '/[\W_]+/', $_REQUEST[ 'new_password' ] ) )
 	{
 		$error_message .= 'Error: New Password must contain at least one special character<br />';
 	}
 	
 	if ( VVA_CHANGE_PASSWORD_USE_UPPERCASE &&
-		( ! preg_match('/[a-z]+/', $_REQUEST[ 'new_password' ] ) || ! preg_match('/[A-Z]+/', $_REQUEST[ 'new_password' ] ) )
+		( ! preg_match( '/[a-z]+/', $_REQUEST[ 'new_password' ] ) || ! preg_match( '/[A-Z]+/', $_REQUEST[ 'new_password' ] ) )
 		)
 	{
 		$error_message .= 'Error: New Password must contain at least one lowercase and one uppercase letter<br />';
@@ -227,7 +227,7 @@ function vva_change_password_get_form_errors()
  * @param string $new_password
  * @return boolean
  */
-function vva_change_password_write_file($new_password)
+function vva_change_password_write_file( $new_password )
 {
 	$configdata = file_get_contents( YOURLS_CONFIGFILE );
 	if ( $configdata == FALSE )
